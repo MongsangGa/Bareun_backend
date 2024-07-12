@@ -28,3 +28,11 @@ BEGIN
 		userID = _userID AND 
 		userPW = MD5(_userPW);
 END
+
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GET_ID_CHECK`(
+	_userID VARCHAR(20)
+)
+BEGIN
+	SELECT * FROM USER WHERE userID = _userID;
+END
