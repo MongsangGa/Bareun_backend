@@ -11,9 +11,11 @@ const server = require('./loaders/serverLoader');
 
 
 // 임시
-// jwt 세션 등 추가될수도 있으니까
-const options = {};
+// jwt 세션 등 추가 고려
+const options = {
 
-server.getServer(options).listen(8080, () => {
-    console.log('asdasd');
+};
+
+server.getServer(options).listen(7896, () => {
+    console.log('바른발음 서버 시작');
 });
