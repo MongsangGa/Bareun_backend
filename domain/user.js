@@ -18,21 +18,21 @@ router.get('/login', async (req, res) => {
         userPW = req.query.userPW;
         
         if (userID.length > 20) {
-            res.status(200).send('E0002'); 
+            res.status(200).send({ result: 'E0002' }); 
         } else if (userPW.length > 20) {
-            res.status(200).send('E0003');
+            res.status(200).send({ result: 'E0003' });
         } else if (userID === undefined || userID === null || userPW === undefined || userPW === null) {
             throw error; 
         } else { 
             result = await db.doCallProcedure('CALL GET_LOGIN(?, ?)', [userID, userPW]); 
             if (result[0][0].length == 0) {
-                res.status(200).send('E0004'); 
+                res.status(200).send({ result: 'E0004' }); 
             } else {
-                res.status(200).send('S0001'); 
+                res.status(200).send({ result: 'S0001' }); 
             }
         }
     } catch (error) {
-        res.status(400).send('E0001'); 
+        res.status(400).send({ result: 'E0001' }); 
     }
 });
 
@@ -48,19 +48,19 @@ router.get('/idCheck', async (req, res) => {
     try {
         userID = req.query.userID;
         if (userID.length > 20) {
-            res.status(200).send('E0002'); 
+            res.status(200).send({ result: 'E0002' }); 
         } else if (userID === undefined || userID === null) {
             throw error;
         } else {
             result = await db.doCallProcedure('CALL GET_ID_CHECK(?)', [userID]); 
             if (result[0][0].length == 0) {
-                res.status(200).send('S0001');
+                res.status(200).send({ result: 'S0001' });
             } else {
-                res.status(200).send('E0003');
+                res.status(200).send({ result: 'E0003' });
             }
         }
     } catch (error) {
-        res.status(400).send('E0001');
+        res.status(400).send({ result: 'E0001' });
     }
 });
 
