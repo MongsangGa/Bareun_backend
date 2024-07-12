@@ -1,0 +1,18 @@
+CREATE DATABASE Bareun
+USE Bareun
+CREATE TABLE User(
+userNo INT PRIMARY KEY NOT NULL AUTO_INCREMENT COMMENT '유저 번호', 
+userID VARCHAR(20) NOT NULL COMMENT '유저 아이디', 
+userPW VARCHAR(20) NOT NULL COMMENT '유저 비밀번호', 
+userName VARCHAR(20) NOT NULL COMMENT '유저 성명', 
+userComment VARCHAR(50) NOT NULL COMMENT '유저 한줄소개', 
+userAuthMethod INT NOT NULL COMMENT '유저 인증 방식(0: 해당 없음, 1: 카카오톡)', 
+insertDate DATETIME, 
+updateDate DATETIME) COMMENT='유저';
+
+DROP USER 'bareunAdmin'@'localhost'
+FLUSH PRIVILEGES
+CREATE USER 'bareunAdmin'@'localhost' IDENTIFIED BY '1q2w3e4r!'
+FLUSH PRIVILEGES
+GRANT INSERT, DELETE, UPDATE, SELECT ON airport. * TO 'bareunAdmin'@'localhost'
+FLUSH PRIVILEGES
