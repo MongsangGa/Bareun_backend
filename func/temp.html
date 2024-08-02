@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>프론트</title>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    
+    <div id="chat">
+        <input id="messageInput" type="text" placeholder="Type your message here...">
+        <button id="sendButton">Send</button>
+    </div>
+    <div id="messages"></div>
+
+    <script>
+        const socket = io();
+
+        socket.emit('joinRoom');
+
+        socket.on('roomJoined', (room) => {
+            console.log(`Joined room: ${room}`);
+        });
+
+        socket.on('roomFull', (room) => {
+            console.log(`Room is full: ${room}`);
+        });
+
+        socket.on('message', (message) => {
+            const messageElement = document.createElement('div');
+            messageElement.textContent = `Friend: ${message}`;
+            document.getElementById('messages').appendChild(messageElement);
+        });
+
+        document.getElementById('sendButton').addEventListener('click', () => {
+            const message = document.getElementById('messageInput').value;
+            socket.emit('message', message);
+            const messageElement = document.createElement('div');
+            messageElement.textContent = `You: ${message}`;
+            document.getElementById('messages').appendChild(messageElement);
+            document.getElementById('messageInput').value = '';
+        });
+    </script>
+</body>
+</html>
